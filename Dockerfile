@@ -1,10 +1,10 @@
 # Build stage
-FROM gradle:7.4-jdk17 as build
+FROM gradle:7.4-jdk21 as build
 ENV SPRING_PROFILES_ACTIVE=production
 WORKDIR /app
 COPY . /app
 # Start with a base image containing Java runtime
-FROM openjdk:11-jdk-slim
+FROM openjdk:21-jdk-slim-alpine
 
 # The application's .jar file
 ARG JAR_FILE=target/*.jar
