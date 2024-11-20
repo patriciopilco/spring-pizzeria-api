@@ -1,6 +1,5 @@
 # Build stage
 FROM gradle:7.4.2-jdk21 AS build
-ENV SPRING_PROFILES_ACTIVE=production
 WORKDIR /app
 COPY . /app
 # Start with a base image containing Java runtime
@@ -31,8 +30,7 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 RUN gradle build --no-daemon
 
 # Run stage
-FROM eclipse-temurin:17-jdk
-ENV SPRING_PROFILES_ACTIVE=production
+FROM eclipse-temurin:21-jdk-jammy
 USER 10001
 VOLUME /tmp
 COPY --from=build /app/build/libs/*.jar app.jar
