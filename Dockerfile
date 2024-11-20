@@ -1,5 +1,5 @@
 # Build stage
-FROM gradle:7.4.2-jdk21 AS build
+FROM gradle:8.4-jdk21-alpine AS build
 WORKDIR /app
 COPY . /app
 # Start with a base image containing Java runtime
