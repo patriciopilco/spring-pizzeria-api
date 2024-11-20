@@ -1,50 +1,11 @@
 # Build stage
-FROM gradle:8.4-jdk21-alpine AS build
+FROM gradle:8.4.0-jdk21 AS build
 WORKDIR /app
 COPY . /app
-# Start with a base image containing Java runtime
-FROM openjdk:21-jdk-slim-alpine
-
-# The application's .jar file
-ARG JAR_FILE=target/*.jar
-
-# Add the application's .jar to the container
-COPY ${JAR_FILE} app.jar
-
-# Define build-time variables
-ARG DB_HOST
-ARG DB_PORT
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
-
-# Set environment variables
-ENV DB_HOST=${DB_HOST}
-ENV DB_PORT=${DB_PORT}
-ENV DB_NAME=${DB_NAME}
-ENV DB_USER=${DB_USER}
-ENV DB_PASSWORD=${DB_PASSWORD}
-
-# Run the application
-ENTRYPOINT ["java","-jar","/app.jar"]
 RUN gradle build --no-daemon
 
 # Run stage
-FROM eclipse-temurin:21-jdk-jammy
-USER 10001
-VOLUME /tmp
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
-# Define build-time variables
-ARG DB_HOST
-ARG DB_PORT
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASSWORD
-
-# Set environment variables
-ENV DB_HOST=${DB_HOST}
-ENV DB_PORT=${DB_PORT}
-ENV DB_NAME=${DB_NAME}
-ENV DB_USER=${DB_USER}
-ENV DB_PASSWORD=${DB_PASSWORD}
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
