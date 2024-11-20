@@ -1,5 +1,5 @@
 # Build stage
-FROM gradle:7.4-jdk21 as build
+FROM gradle:7.4.2-jdk21 AS build
 ENV SPRING_PROFILES_ACTIVE=production
 WORKDIR /app
 COPY . /app
