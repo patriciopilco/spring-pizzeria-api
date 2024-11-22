@@ -8,5 +8,11 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:application.properties")
 public class Config {
 
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    public String getJwtSecret() {
+        return jwtSecret;
+    }
 }
 
