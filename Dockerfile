@@ -15,12 +15,13 @@ ENV DB_USER=${DB_USER}
 ENV DB_PASSWORD=${DB_PASSWORD}
 
 WORKDIR /app
-COPY . /app
+COPY . .
 RUN gradle build --no-daemon
 
 # Run stage
 FROM eclipse-temurin:21-jdk-jammy
 USER 10001
-VOLUME /tmp
+WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
