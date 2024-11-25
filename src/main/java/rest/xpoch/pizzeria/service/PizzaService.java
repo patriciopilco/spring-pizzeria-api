@@ -17,11 +17,14 @@ import org.springframework.data.domain.Sort;
 
 @Service
 public class PizzaService {
-    @Autowired
-    private PizzaRepository pizzaRepository;
 
-    @Autowired
-    private PizzaPagSortRepository pizzaPagSortRepository;
+    private final PizzaRepository pizzaRepository;
+    private final PizzaPagSortRepository pizzaPagSortRepository;
+
+    public PizzaService(PizzaRepository pizzaRepository, PizzaPagSortRepository pizzaPagSortRepository) {
+        this.pizzaRepository = pizzaRepository;
+        this.pizzaPagSortRepository = pizzaPagSortRepository;
+    }
 
     public Page<PizzaEntity> getAll(int page, int elements){
         Pageable pageRequest = PageRequest.of(page, elements);

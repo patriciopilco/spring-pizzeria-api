@@ -26,8 +26,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/api/pizzas")
 public class PizzaController {
 
-    @Autowired
-    private PizzaService pizzaService;
+
+    private final  PizzaService pizzaService;
+
+    public PizzaController(PizzaService pizzaService) {
+        this.pizzaService = pizzaService;
+    }
 
     @GetMapping()
     public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0") int page,
