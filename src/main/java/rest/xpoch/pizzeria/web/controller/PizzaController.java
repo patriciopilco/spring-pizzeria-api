@@ -1,5 +1,6 @@
 package rest.xpoch.pizzeria.web.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
 
 import rest.xpoch.pizzeria.persistence.entity.PizzaEntity;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/api/pizzas")
 public class PizzaController {
 
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     private final  PizzaService pizzaService;
 
@@ -106,6 +109,11 @@ public class PizzaController {
     @GetMapping("/cheapest/{price}")
     public ResponseEntity<List<PizzaEntity>> getCheapestPizzas(@PathVariable double price) {
         return ResponseEntity.ok(this.pizzaService.getCheapest(price));
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return jwtSecret;
     }
     
 }
