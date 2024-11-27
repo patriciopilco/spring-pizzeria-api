@@ -8,6 +8,7 @@ FROM gradle:8.4.0-jdk21 AS build
 #ARG DB_PASSWORD
 
 # Set environment variables
+ENV JWT_SECRET=${JWT_SECRET}
 ENV DB_HOST=${DB_HOST}
 ENV DB_PORT=${DB_PORT}
 ENV DB_NAME=${DB_NAME}
