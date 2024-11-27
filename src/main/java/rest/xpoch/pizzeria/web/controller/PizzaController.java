@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/api/pizzas")
 public class PizzaController {
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    //@Value("${jwt.secret}")
+    //private String jwtSecret;
 
     private final  PizzaService pizzaService;
 
@@ -113,7 +113,7 @@ public class PizzaController {
 
     @GetMapping("/hello")
     public String hello() {
-        return jwtSecret;
+        return "Hello, World!";
     }
     
 }
