@@ -18,17 +18,14 @@ import java.util.List;
 @Component
 public class JwtFilter extends OncePerRequestFilter{
 
-    @Autowired
-    private JwtAdapter jwtAdapter;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = request.getHeader("Authorization");
         System.out.println("jwt: " + jwt);
         if(jwt != null && jwt.startsWith("Bearer ")){
             jwt = jwt.substring(7);
-            if(jwtAdapter.isValid(jwt)){
-                String payload = jwtAdapter.getPayload(jwt);
+            if(JwtAdapter.isValid(jwt)){
+                String payload = JwtAdapter.getPayload(jwt);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(null, null, List.of(new SimpleGrantedAuthority(payload)));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
