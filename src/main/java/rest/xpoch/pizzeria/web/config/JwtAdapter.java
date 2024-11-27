@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtAdapter {
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    //@Value("${jwt.secret}")
+    //private String jwtSecret;
 
     private String SECRET_KEY;
     private Algorithm ALGORITHM;
 
     @PostConstruct
     public void init() {
-        SECRET_KEY = jwtSecret;
+        SECRET_KEY = "3bec6270906972aa535e0ca0";
         ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
     }
 
