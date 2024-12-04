@@ -3,7 +3,7 @@ FROM gradle:8.4.0-jdk21-alpine AS build
 WORKDIR /app
 
 # Copia solo los archivos necesarios para cachear las dependencias
-COPY build.gradle settings.gradle gradle.properties gradlew ./
+COPY build.gradle settings.gradle gradlew ./
 COPY .gradle .gradle
 RUN ./gradlew build --no-daemon || return 0
 
