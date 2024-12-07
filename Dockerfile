@@ -1,13 +1,14 @@
-# Build stage
-FROM gradle:8.4.0-jdk21-alpine AS build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-RUN gradle build --no-daemon 
+# Use an official Java runtime as a parent image
+FROM amazoncorretto:21.0.4-alpine3.18
 
-# Run stage
-FROM eclipse-temurin:21-jre-alpine
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file into the container
+COPY target/containerize-java-spring-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port that the application will run on
 EXPOSE 8080
-RUN mkdir /app
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
 
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "app.jar"]
