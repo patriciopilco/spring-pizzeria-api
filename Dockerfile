@@ -1,11 +1,12 @@
 # Build stage
 FROM gradle:8.4.0-jdk21 AS build
 # Define build-time variables
-#ARG DB_HOST
-#ARG DB_PORT
-#ARG DB_NAME
-#ARG DB_USER
-#ARG DB_PASSWORD
+ARG JWT_SECRET
+ARG DB_HOST
+ARG DB_PORT
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASSWORD
 
 # Set environment variables
 ENV JWT_SECRET=${JWT_SECRET}

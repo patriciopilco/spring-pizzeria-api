@@ -145,3 +145,21 @@ docker build -t ppilco/pizzeria:latest .
  docker run -it -p 9099:8080 -e DB_HOST=34.70.125.230 ppilco/pizzeria:latest
 
 ```
+
+
+
+## Google Cloud
+
+### Crear Imagen
+
+1. Crear repositorio en Artifact Registry
+2. Inicializar gcloud
+```bash
+gcloud init
+```
+3. Configurar docker
+```bash
+docker build -t us-central1-docker.pkg.dev/svelte-443618/images-pizzeria/pizzeria-api .
+gcloud auth configure-docker us-central1-docker.pkg.dev
+docker image push us-central1-docker.pkg.dev/svelte-443618/images-pizzeria/pizzeria-api
+```
